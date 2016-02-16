@@ -5,33 +5,81 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Matriz {
+	/**
+	 * Nº de columnas de la matriz
+	 */
 	private double columnas;
+	/**
+	 * Nº de filas de la matriz
+	 */
 	private double filas;
+	/**
+	 * Matriz
+	 */
 	private double[][] matriz;
+	/**
+	 * Lista con arrays donde cada array corresponde a una fila de la matriz
+	 */
 	private List<Double[]> fila = new ArrayList<>();
+	/**
+	 * Lista con arrays donde cada array correspone a una columna de la matriz
+	 */
 	private List<Double[]> columna = new ArrayList<>();
 	static final Scanner sc = new Scanner(System.in);
 
+	/**
+	 * Metodo para modificar una fila
+	 * 
+	 * @param filaNueva
+	 *            Fila modificada
+	 * @param n
+	 *            Posicion de la fila
+	 */
 	public void setArrayFilas(Double[] filaNueva, int n) {
 		this.fila.set(n, filaNueva);
 	}
 
+	/**
+	 * Metodo getter de fila
+	 * 
+	 * @return Propiedad fila
+	 */
 	public List<Double[]> getArrayFilas() {
 		return new ArrayList<>(this.fila);
 	}
 
+	/**
+	 * Metodo getter de columna
+	 * 
+	 * @return Propiedad columna
+	 */
 	public List<Double[]> getArrayColumnas() {
 		return new ArrayList<>(this.columna);
 	}
 
+	/**
+	 * Metodo getter de columnas
+	 * 
+	 * @return Nº de columnas de la matriz
+	 */
 	public double getColumnas() {
 		return this.columnas;
 	}
 
+	/**
+	 * Metodo getter de filas
+	 * 
+	 * @return Nº de filas de la matriz
+	 */
 	public double getFilas() {
 		return this.filas;
 	}
 
+	/**
+	 * Metodo getter de matriz
+	 * 
+	 * @return Propiedad matriz
+	 */
 	public double[][] getMatriz() {
 		return this.matriz;
 	}
@@ -44,6 +92,8 @@ public class Matriz {
 		this.columnas = sc.nextDouble();
 		this.matriz = new double[(int) filas][(int) columnas];
 		for (int i = 0; i < filas; i++) {
+			// por cada fila se crea un array "a" que contiene los valores de
+			// esa fila
 			Double[] a = new Double[(int) columnas];
 			for (int j = 0; j < columnas; j++) {
 				System.out.println("Numero en la posicion [" + i + "][" + j + "]");
@@ -51,13 +101,17 @@ public class Matriz {
 				a[j] = tmp;
 				matriz[i][j] = tmp;
 			}
+			// se añade cada "a" a fila
 			fila.add(a);
 		}
+		// por cada columna se crea una array "b" que contiene los valores de
+		// esa columna
 		for (int i = 0; i < this.columnas; i++) {
 			Double[] b = new Double[(int) filas];
 			for (int j = 0; j < this.filas; j++) {
 				b[j] = this.matriz[j][i];
 			}
+			// se añade cada "b" a columna
 			columna.add(b);
 		}
 	}
@@ -136,11 +190,15 @@ public class Matriz {
 		Matriz m1 = new Matriz();
 		System.out.println("Matriz 2");
 		Matriz m2 = new Matriz();
+		// se comprueba que ambas matrices son del mismo tamaño
 		if (m1.getFilas() != m2.getFilas() || m1.getColumnas() != m2.getColumnas()) {
 			System.out.println("No se pueden sumar dos matrices de distinto tamaño");
 			mostrarMenu();
 		} else {
+			// se crea una nueva matriz con el mismo tamaño
 			Matriz m = new Matriz(m1.getFilas(), m1.getColumnas());
+			// se rellena la nueva matriz con la suma de ambas matrices en cada
+			// posicion
 			for (int i = 0; i < m.getFilas(); i++) {
 				for (int j = 0; j < m.getColumnas(); j++) {
 					m.matriz[i][j] = m1.matriz[i][j] + m2.matriz[i][j];
@@ -160,11 +218,15 @@ public class Matriz {
 		Matriz m1 = new Matriz();
 		System.out.println("Creacion de la matriz 2");
 		Matriz m2 = new Matriz();
+		// se comprueba que ambas matrices son del mismo tamaño
 		if (m1.getFilas() != m2.getFilas() || m1.getColumnas() != m2.getColumnas()) {
 			System.out.println("No se pueden restar dos matrices de distinto tamaño");
 			mostrarMenu();
 		} else {
+			// se crea una nueva matriz con el mismo tamaño
 			Matriz m = new Matriz(m1.getFilas(), m1.getColumnas());
+			// se rellena la nueva matriz con la resta de ambas matrices en cada
+			// posicion
 			for (int i = 0; i < m.getFilas(); i++) {
 				for (int j = 0; j < m.getColumnas(); j++) {
 					m.matriz[i][j] = m1.matriz[i][j] - m2.matriz[i][j];
@@ -184,6 +246,7 @@ public class Matriz {
 		Matriz m = new Matriz();
 		System.out.println("Numero entre el que se divide");
 		Double n = sc.nextDouble();
+		// se divide cada posicion entre el numero dado
 		for (int i = 0; i < m.getFilas(); i++) {
 			for (int j = 0; j < m.getColumnas(); j++) {
 				m.matriz[i][j] = (m.matriz[i][j] / n);
@@ -196,6 +259,7 @@ public class Matriz {
 	// Metodo para una vez modificadas las filas o las columnas se actualice
 	// toda la matriz
 	public void actualizarMatriz(String modificado) {
+		// si se ha modificado fila
 		if (modificado.equals("fila")) {
 			for (int i = 0; i < this.getFilas(); i++) {
 				for (int j = 0; j < fila.get(0).length; j++) {
@@ -207,7 +271,8 @@ public class Matriz {
 					this.columna.get(i)[j] = this.fila.get(j)[i];
 				}
 			}
-		} else if (modificado.equals("fila")) {
+			// si se ha modificado columna
+		} else if (modificado.equals("columna")) {
 			for (int i = 0; i < this.getColumnas(); i++) {
 				for (int j = 0; j < columna.get(0).length; j++) {
 					this.matriz[i][j] = this.columna.get(i)[j];

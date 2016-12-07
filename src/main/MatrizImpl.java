@@ -325,15 +325,17 @@ public class MatrizImpl implements Matriz {
 		case 4:
 			dividirNumero();
 			break;
+		case 5:
+			break;
 		default:
+			System.out.println("Introduzca un numero valido");
+			mostrarMenu();
 			break;
 		}
 	}
 
 	public static void main(String[] args) {
-		MatrizImpl m = new MatrizImpl();
-		m.mostrarMatriz();
-		m.matrizIdentidad.mostrarMatriz();
+		MatrizImpl.mostrarMenu();
 	}
 
 
